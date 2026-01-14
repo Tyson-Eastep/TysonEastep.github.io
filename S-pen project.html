@@ -1,0 +1,206 @@
+<!DOCTYPE HTML>
+<!--
+	Massively by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+	<head>
+		<title>Generic Page - Massively by HTML5 UP</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<link rel="stylesheet" href="assets/css/main.css" />
+		<noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
+	</head>
+	<body class="is-preload">
+
+		<!-- Wrapper -->
+			<div id="wrapper">
+
+				<!-- Header -->
+					<header id="header">
+						<a href="index.html" class="logo">Return</a>
+					</header>
+
+				<!-- Nav -->
+					<nav id="nav">
+						<ul class="links">
+							<li><a href="index.html">My Projects</a></li>
+							
+						</ul>
+						<ul class="icons">
+							<li><a href="https://www.linkedin.com/in/t-eastep/" class="icon brands alt fa-linkedin"><span class="label">LinkedIn</span></a></li>
+									<li><a href="https://github.com/Tyson-Eastep" class="icon brands alt fa-github"><span class="label">GitHub</span></a></li>
+					</nav>
+
+				<!-- Main -->
+					<div id="main">
+
+						<!-- Post -->
+							<section class="post">
+								<header class="major">
+									<span class="date">July 2025 - Jan 2026</span>
+									<h1>Modular S-Pen Grip Sleeve<br />
+									Iterative Mechanical Design & FDM Prototyping</h1>
+									<p>A modular, 3D-printed grip sleeve designed to improve S-Pen ergonomics through constraint-driven mechanical design, threaded interfaces, and real-world durability testing.<br />
+									<br />
+									</p>
+								</header>
+								<div class="image main"><img src="images/exploded parts.PNG" alt="" /></div>
+
+								<h2>Quick Facts</h2>
+								<li>Role: Designer & Fabricator</li>
+								<li>Tools: Onshape, Bambu Studio, Bambu Lab A1 Mini</li>
+								<li>Process: Iterative prototyping, failure analysis</li>
+								<li>Focus: Ergonomics, durability, manufacturability</li><br />
+
+								<h2>Problem Statement</h2>
+
+								<h3>The Problem</h3>
+								<p>Modern styli like the Samsung S-Pen prioritize precision and compactness, but their slim form factor can cause discomfort and grip fatigue during extended writing. Existing third-party grips—often silicone—stretch, deform, or lack consistent retention.</p>
+
+								<h3>Goal</h3>
+								<p>Design a non-destructive, modular grip sleeve that improves ergonomics without sacrificing precision or manufacturability.</p>
+
+								<h2>Design Constraints</h2>
+
+								<h3>Key Constraints</h3>
+								<li>Must fit securely without adhesives or permanent modification</li>
+								<li>Must not interfere with writing tip or sensing functionality</li>
+								<li>Must be printable on consumer-grade FDM hardware</li>
+								<li>Small-scale geometry limited by nozzle resolution</li>
+								<li>Durability required under daily use (install/removal + backpack transport)</li><br />
+								<p>These constraints frame every other design decision that follows.</p>
+
+								<h2>Concept Evolution</h2>
+
+								<h3>Early Two-Piece Design</h3>
+								<div class="image main"><img src="images/Figure 3.1.PNG" alt="" /></div>
+								<p>Early partial-coverage design used to isolate attachment mechanisms.</p>
+
+								<h3>Slide-Lock vs Threaded</h3>
+								<div class="image main"><img src="images/Figure 3.2.PNG" alt="" /></div>
+								<p>Slide-lock concepts failed at FDM scale, prompting transition to threaded interfaces.</p>
+
+								<h3>Threaded Modular System</h3>
+								<div class="image main"><img src="images/threaded modular system.PNG" alt="" /></div>
+								<p>Threaded attachment enabled reliable retention and modular iteration.</p>
+
+								<h2>Engineering Decisions</h2>
+
+								<h3>Key Engineering Decisions</h3>
+								<p>Threaded Interfaces 
+									<li>Chosen over slide-locks due to FDM resolution limits</li>
+									<li>Tolerant to print variation</li>
+									<li>Scalable across modular components</li>
+								Result: Reliable attachment without adhesives</p>
+
+								<p>0.2 mm Nozzle Adoption 
+									<li>Improved thread fidelity at small diameters</li>
+									<li>Increased print time but enabled viable designs</li>
+								Result: Printable threads at stylus scale</p>
+
+								<p>Modular Architecture 
+									<li>Grip geometry separated from retention interface</li>
+									<li>Allowed rapid ergonomic experimentation</li>
+								Result: Multiple grip variants without redesigning the entire sleeve</p>
+
+								<h2>Ergonomic Exploration</h2>
+
+								<h3>Grip Geometry Variants</h3>
+								<div class="image main"><img src="images/Figure 4.2.1.PNG" alt="" /></div>
+								<div class="image main"><img src="images/Figure 4.2.2.jpg" alt="" /></div>
+								<p>Faceted, knurled, and smooth profiles were evaluated to explore tactile feedback, rotational stability, and subjective comfort.</p>
+
+								<h2>Failure & Iteration</h2>
+
+								<h3>Durability-Driven Iteration</h3>
+								<h4>Failure Example</h4>
+								<div class="image main"><img src="images/Figure 6.2.1.jpg" alt="" /></div>
+								<p>Early failures at threaded interfaces revealed stress concentration and insufficient wall thickness.</p>
+								<h4>Fix Example</h4>
+								<div class="image main"><img src="images/Figure 4.3.PNG" alt="" /></div>
+								<p>Thread relief and increased engagement redistributed stress and improved durability.</p>
+								<h4>Key Takeaway:</h4>
+								<p>Durability emerged as a dominant constraint only after extended real-world use.</p>
+
+								<h2>Results & Tradeoffs</h2>
+
+								<h3>Outcomes</h3>
+									<li>Improved comfort during extended writing</li>
+									<li>Reliable, repeatable attachment</li>
+									<li>Manufacturable on consumer-grade hardware</li>
+								<p></p>
+
+								<h3>Known Tradeoffs</h3>
+									<li>Partial obstruction of S-Pen side button</li>
+									<li>Magnetic storage compatibility not preserved</li>
+									<li>Durability improved, not “indestructible”</li>
+								<p></p>
+
+								<h2>What This Project Demonstrates</h2>
+
+								<h3>Skills Demonstrated</h3>
+									<li>Constraint-driven mechanical design</li>
+									<li>Iterative prototyping & failure analysis</li>
+									<li>Small-scale threaded design for FDM</li>
+									<li>CAD parameterization (Onshape)</li>
+									<li>Manufacturing-aware design decisions</li>
+								<p></p>
+
+								<h2>Optional Extras</h2>
+
+								<li><a href="images/modular-s-pen-grip-sleeve-design-case-study.pdf">Full Design Case Study (PDF)</a></li>
+								<li><a href="https://makerworld.com/en/models/2242130-modular-s-pen-grip-sleeve-body-components#profileId-2440756">Makerworld - Body Components</a></li>
+								<li><a href="https://makerworld.com/en/models/2244670-modular-s-pen-grip-sleeve-grip-modules#profileId-2443825">Makerworld - Grip Modules</a></li>
+								<p>This model is split into two MakerWorld uploads due to different print process requirements. Body components prioritize dimensional accuracy and thread strength, while grip modules prioritize surface finish and ergonomics.</p>
+							</section>
+
+					</div>
+
+				<!-- Footer -->
+					<footer id="footer">
+						
+						<section class="split contact">
+							<section class="alt">
+								<h3>Location</h3>
+								<p><br />
+								Choctaw, OK 73020</p>
+							</section>
+							<section>
+								<h3>Phone</h3>
+								<p><a href="#">(405) 830-2747</a></p>
+							</section>
+							<section>
+								<h3>Email</h3>
+								<p><a href="#">tysoneastep05@gmail.com</a></p>
+							</section>
+							<section>
+								<h3>Social</h3>
+								<ul class="icons alt">
+									
+									<li><a href="https://www.linkedin.com/in/t-eastep/" class="icon brands alt fa-linkedin"><span class="label">LinkedIn</span></a></li>
+									<li><a href="#" class="icon brands alt fa-github"><span class="label">GitHub</span></a></li>
+								</ul>
+							</section>
+						</section>
+					</footer>
+
+				<!-- Copyright -->
+					<div id="copyright">
+						<ul><li>&copy; Untitled</li><li>Design: <a href="https://html5up.net">HTML5 UP</a></li></ul>
+					</div>
+
+			</div>
+
+		<!-- Scripts -->
+			<script src="assets/js/jquery.min.js"></script>
+			<script src="assets/js/jquery.scrollex.min.js"></script>
+			<script src="assets/js/jquery.scrolly.min.js"></script>
+			<script src="assets/js/browser.min.js"></script>
+			<script src="assets/js/breakpoints.min.js"></script>
+			<script src="assets/js/util.js"></script>
+			<script src="assets/js/main.js"></script>
+
+	</body>
+</html>
