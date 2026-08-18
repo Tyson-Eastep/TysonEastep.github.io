@@ -1,0 +1,2068 @@
+<!DOCTYPE HTML>
+<!--
+	Massively by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license
+	(html5up.net/license)
+-->
+<html>
+	<head>
+		<title>Soil Moisture & HF RF Reception - Part I - Tyson Eastep</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<link rel="stylesheet" href="assets/css/main.css" />
+		<noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
+	</head>
+
+	<body class="is-preload">
+
+		<!-- Wrapper -->
+		<div id="wrapper">
+
+			<!-- Header -->
+			<header id="header">
+				<a href="index.html" class="logo">Return</a>
+			</header>
+
+			<!-- Nav -->
+			<nav id="nav">
+
+				<ul class="links">
+					<li><a href="index.html">My Projects</a></li>
+				</ul>
+
+				<ul class="icons">
+
+					<li>
+						<a href="https://www.linkedin.com/in/t-eastep/"
+						   class="icon brands alt fa-linkedin">
+							<span class="label">LinkedIn</span>
+						</a>
+					</li>
+
+					<li>
+						<a href="https://github.com/Tyson-Eastep"
+						   class="icon brands alt fa-github">
+							<span class="label">GitHub</span>
+						</a>
+					</li>
+
+				</ul>
+
+			</nav>
+
+
+			<!-- Main -->
+			<div id="main">
+
+				<!-- Post -->
+				<section class="post">
+
+
+					<!-- ===================================================== -->
+					<!-- HERO -->
+					<!-- ===================================================== -->
+
+					<header class="major">
+
+						<span class="date">Spring - Summer 2026</span>
+
+						<h1>
+							Soil Moisture &amp; HF RF Reception<br />
+							Part I: SDR Platform &amp; Data Collection
+						</h1>
+
+						<p>
+							Development of a Linux-based software-defined radio measurement
+							platform for investigating the relationship between antenna
+							grounding, soil conditions, and HF reception. Part I focuses on
+							the hardware, software, troubleshooting, receiver tuning,
+							automation, and field methodology required to turn an informal
+							radio observation into a repeatable RF experiment.
+						</p>
+
+					</header>
+
+
+					<div class="image main">
+						<img src="images/20260404_161537.jpg"
+							 alt="5/8-wave vertical antenna and tower used for the HF SDR research project" />
+					</div>
+
+
+					<div class="box">
+
+						<p>
+							<strong>Project Series - Part I:</strong>
+							This page documents the development of the experimental platform
+							and data-collection methodology. A separate Part II will focus on
+							the completed dataset, statistical analysis, research figures,
+							experimental limitations, and final results.
+						</p>
+
+					</div>
+
+
+					<!-- ===================================================== -->
+					<!-- QUICK FACTS -->
+					<!-- ===================================================== -->
+
+					<h2>Quick Facts</h2>
+
+					<div class="table-wrapper">
+
+						<table class="alt">
+
+							<tbody>
+
+								<tr>
+									<td><strong>Project Type</strong></td>
+									<td>Independent undergraduate RF research</td>
+								</tr>
+
+								<tr>
+									<td><strong>Primary Role</strong></td>
+									<td>
+										Experimental design, SDR integration, Linux configuration,
+										scripting, field testing &amp; data-collection automation
+									</td>
+								</tr>
+
+								<tr>
+									<td><strong>Research Area</strong></td>
+									<td>
+										HF radio reception, antenna grounding,
+										software-defined radio &amp; environmental effects
+									</td>
+								</tr>
+
+								<tr>
+									<td><strong>Antenna</strong></td>
+									<td>
+										Existing custom 5/8-wave vertical designed for the
+										27 MHz CB region
+									</td>
+								</tr>
+
+								<tr>
+									<td><strong>Radiator Length</strong></td>
+									<td>Approximately 21.5 ft</td>
+								</tr>
+
+								<tr>
+									<td><strong>Tower</strong></td>
+									<td>
+										Antenna base approximately 61 ft above ground level
+									</td>
+								</tr>
+
+								<tr>
+									<td><strong>Feed Line</strong></td>
+									<td>
+										Approximately 120 ft of RG-213/U 50-ohm coaxial cable
+									</td>
+								</tr>
+
+								<tr>
+									<td><strong>SDR Receiver</strong></td>
+									<td>Nooelec NESDR SMArt v5 RTL-SDR</td>
+								</tr>
+
+								<tr>
+									<td><strong>Project Computer</strong></td>
+									<td>HP EliteDesk 800 G3 Mini</td>
+								</tr>
+
+								<tr>
+									<td><strong>Operating System</strong></td>
+									<td>Linux Mint XFCE 22.3</td>
+								</tr>
+
+								<tr>
+									<td><strong>Primary Digital Signal</strong></td>
+									<td>10 m FT8 near 28.074 MHz</td>
+								</tr>
+
+								<tr>
+									<td><strong>Wideband Scan</strong></td>
+									<td>26.9-28.2 MHz</td>
+								</tr>
+
+								<tr>
+									<td><strong>Automated Schedule</strong></td>
+									<td>
+										Seven measurements per day from 08:00 through 20:00
+									</td>
+								</tr>
+
+								<tr>
+									<td><strong>Primary Software</strong></td>
+									<td>
+										SDR++, WSJT-X, rtl_fm, rtl_power,
+										Bash, Python, R &amp; GNU Radio
+									</td>
+								</tr>
+
+								<tr>
+									<td><strong>Remote Operation</strong></td>
+									<td>
+										RustDesk, SSH &amp; headless Linux configuration
+									</td>
+								</tr>
+
+							</tbody>
+
+						</table>
+
+					</div>
+
+
+					<!-- ===================================================== -->
+					<!-- PROJECT ORIGIN -->
+					<!-- ===================================================== -->
+
+					<h2>Project Origin</h2>
+
+					<h3>From CB Lore to a Testable Question</h3>
+
+					<p>
+						The project originated from conversations with my dad about the
+						large CB antenna installed behind our house. Over the years, he had
+						noticed that reception sometimes seemed especially good following
+						rainfall.
+					</p>
+
+					<p>
+						One informal explanation among the CB operators he knew was that rain
+						"cleaned the air" and removed material that might otherwise interfere
+						with radio signals. Whether that explanation was correct or not,
+						the repeated observation itself was interesting.
+					</p>
+
+					<p>
+						As an electrical engineering student becoming increasingly interested
+						in RF systems, I started wondering whether another part of the
+						installation might contribute to the observation: the antenna grounding
+						system and the changing electrical properties of the surrounding soil.
+					</p>
+
+
+					<div class="box">
+
+						<p>
+							<strong>Initial Research Question:</strong>
+							Could changing soil moisture around the antenna grounding system
+							produce a measurable change in HF reception?
+						</p>
+
+					</div>
+
+
+					<p>
+						The antenna itself was primarily built and installed by my dad years
+						before this research project began. I did, however, help him install
+						the original 6-ft ground rod by hammering it into the soil.
+					</p>
+
+					<p>
+						Years later, that same ground connection became one of the central
+						components of my experiment.
+					</p>
+
+
+					<!-- ===================================================== -->
+					<!-- ANTENNA SYSTEM -->
+					<!-- ===================================================== -->
+
+					<h2>The Existing Antenna System</h2>
+
+					<p>
+						Rather than constructing a laboratory antenna specifically for the
+						project, I used the existing fixed-site antenna associated with the
+						original reception observations.
+					</p>
+
+
+					<div class="image main">
+						<img src="images/20260404_161537.jpg"
+							 alt="Full view of the vertical antenna and supporting tower" />
+					</div>
+
+
+					<p>
+						The antenna is a custom 5/8-wave vertical designed around the
+						27 MHz CB region. Its radiator is approximately 21.5 ft long,
+						with the antenna mounted at the top of a guyed tower.
+					</p>
+
+					<p>
+						The installation provided something especially useful for the
+						experiment: a permanent RF system whose antenna, feed line, physical
+						location, and surrounding environment could remain fixed while selected
+						experimental variables were changed.
+					</p>
+
+
+					<!-- ===================================================== -->
+					<!-- EARLY SDR -->
+					<!-- ===================================================== -->
+
+					<h2>Learning Software-Defined Radio</h2>
+
+					<h3>Starting With SDR++</h3>
+
+					<p>
+						My first goal was simply learning how to use an RTL-SDR as something
+						more than a radio receiver. Before developing an automated experiment,
+						I needed to understand receiver gain, bandwidth, demodulation modes,
+						waterfall displays, recording, and the behavior of real signals around
+						the 27-28 MHz region.
+					</p>
+
+					<p>
+						SDR++ became the first interface used for the project. Early testing
+						included receiver validation, spectrum exploration, CB reception,
+						beacon searching, and eventually digital FT8 signals.
+					</p>
+
+
+					<div class="box alt">
+
+						<div class="row gtr-50 gtr-uniform">
+
+							<div class="col-6 col-12-small">
+
+								<span class="image fit">
+									<img src="images/Friday_Apr10_FT8%26SDR++_Test.jpg"
+										 alt="Early SDR++ reception testing around the 10 meter FT8 frequency" />
+								</span>
+
+								<p>
+									<em>
+										Early FT8 reception while experimenting with receiver
+										gain, USB demodulation, and bandwidth settings.
+									</em>
+								</p>
+
+							</div>
+
+
+							<div class="col-6 col-12-small">
+
+								<span class="image fit">
+									<img src="images/Friday_Apr10_FT8%26SDR++_Test2.png"
+										 alt="SDR++ waterfall during early 28.074 MHz FT8 testing" />
+								</span>
+
+								<p>
+									<em>
+										FT8 eventually became much more useful than unpredictable
+										voice traffic for developing the measurement system.
+									</em>
+								</p>
+
+							</div>
+
+						</div>
+
+					</div>
+
+
+					<h3>Why FT8?</h3>
+
+					<p>
+						Ordinary CB transmissions were useful for confirming reception, but
+						they were difficult to use as a primary experimental metric. Different
+						operators transmit from different locations, at different power levels,
+						and at unpredictable times.
+					</p>
+
+					<p>
+						FT8 offered a better development signal because transmissions occur
+						in synchronized 15-second cycles and WSJT-X can automatically report
+						decoded messages, SNR, timing offset, and audio frequency.
+					</p>
+
+					<p>
+						This gave the project something that a screenshot of a voice signal
+						could not provide: machine-readable measurements that could eventually
+						be collected automatically.
+					</p>
+
+
+					<!-- ===================================================== -->
+					<!-- NATURAL SATURATION -->
+					<!-- ===================================================== -->
+
+					<h2>Early Natural-Saturation Testing</h2>
+
+					<p>
+						The original experimental plan called for beginning with dry soil and
+						then progressing toward wetter conditions. Oklahoma weather did not
+						cooperate.
+					</p>
+
+					<p>
+						The first major collection opportunity instead occurred during already
+						wet conditions following rainfall. Rather than waiting indefinitely
+						for a dry baseline, I used the available conditions to begin testing
+						the measurement workflow.
+					</p>
+
+
+					<div class="box alt">
+
+						<div class="row gtr-50 gtr-uniform">
+
+							<div class="col-6 col-12-small">
+
+								<span class="image fit">
+									<img src="images/Sunday_Apr12_Beacon_SDR++.PNG"
+										 alt="SDR++ receiving a narrowband beacon during early wet-condition testing" />
+								</span>
+
+								<p>
+									<em>
+										A narrowband signal discovered while searching the
+										10 m region during an early wet-condition test.
+									</em>
+								</p>
+
+							</div>
+
+
+							<div class="col-6 col-12-small">
+
+								<span class="image fit">
+									<img src="images/Sunday_Apr12_Beacon_SDR++_2.PNG"
+										 alt="Narrow receive bandwidth configured around the beacon signal" />
+								</span>
+
+								<p>
+									<em>
+										The SDR++ bandwidth was narrowed around the signal before
+										a longer recording was collected.
+									</em>
+								</p>
+
+							</div>
+
+						</div>
+
+					</div>
+
+
+					<div class="box">
+
+						<p>
+							<strong>Field Research Lesson:</strong>
+							The environment determined which condition could be tested first.
+							The methodology therefore had to evolve around the weather that
+							was actually available rather than follow the original sequence
+							exactly.
+						</p>
+
+					</div>
+
+
+					<!-- ===================================================== -->
+					<!-- OFFLINE ANALYSIS -->
+					<!-- ===================================================== -->
+
+					<h2>The First Data-Processing Problem</h2>
+
+					<h3>Recording Was Easy. Reusing the Recording Was Not.</h3>
+
+					<p>
+						Early SDR++ tests were saved as large WAV recordings so they could
+						be processed later on my primary computer.
+					</p>
+
+					<p>
+						This sounded straightforward, but getting recorded SDR audio into
+						other analysis programs became one of the first major troubleshooting
+						stages of the project.
+					</p>
+
+
+					<div class="box alt">
+
+						<div class="row gtr-50 gtr-uniform">
+
+							<div class="col-6 col-12-small">
+
+								<span class="image fit">
+									<img src="images/Saturated_Ground_Data_Beacon_Audacity_April12.PNG"
+										 alt="Recorded FT8 WAV file opened in Audacity" />
+								</span>
+
+								<p>
+									<em>
+										A 20-minute SDR++ recording opened in Audacity for
+										offline inspection.
+									</em>
+								</p>
+
+							</div>
+
+
+							<div class="col-6 col-12-small">
+
+								<span class="image fit">
+									<img src="images/Saturated_Ground_Data_April12.PNG"
+										 alt="Audacity FFT frequency analysis of recorded FT8 audio" />
+								</span>
+
+								<p>
+									<em>
+										FFT analysis provided numerical frequency-domain information
+										beyond the original SDR++ waterfall.
+									</em>
+								</p>
+
+							</div>
+
+
+							<div class="col-6 col-12-small">
+
+								<span class="image fit">
+									<img src="images/Saturated_Ground_Data_WSJT-X_April12.PNG"
+										 alt="Recorded FT8 data being decoded through WSJT-X" />
+								</span>
+
+								<p>
+									<em>
+										Recorded FT8 data eventually being decoded by WSJT-X.
+									</em>
+								</p>
+
+							</div>
+
+
+							<div class="col-6 col-12-small">
+
+								<span class="image fit">
+									<img src="images/Saturated_Ground_Data_MSHV_April12.PNG"
+										 alt="Recorded FT8 data being decoded through MSHV" />
+								</span>
+
+								<p>
+									<em>
+										MSHV was also tested while looking for a reliable
+										offline-decoding workflow.
+									</em>
+								</p>
+
+							</div>
+
+						</div>
+
+					</div>
+
+
+					<p>
+						Sample formats, timing, resampling, file compatibility, and decoder
+						expectations made the offline workflow much more fragile than I had
+						expected.
+					</p>
+
+					<p>
+						That difficulty eventually changed the architecture of the project.
+						Rather than repeatedly recording large files and decoding them later,
+						I began working toward a system that could send live receiver audio
+						directly into WSJT-X.
+					</p>
+
+
+					<!-- ===================================================== -->
+					<!-- DEDICATED LINUX COMPUTER -->
+					<!-- ===================================================== -->
+
+					<h2>A Dedicated Linux SDR Computer</h2>
+
+					<p>
+						Long-duration data collection also created a practical hardware problem.
+						My normal computer could not remain permanently attached to the antenna,
+						and manually setting up a laptop for every measurement would limit the
+						amount of data that could realistically be collected.
+					</p>
+
+					<p>
+						To solve this, I acquired an HP EliteDesk 800 G3 Mini and converted it
+						into a dedicated always-available SDR computer.
+					</p>
+
+
+					<div class="table-wrapper">
+
+						<table>
+
+							<tbody>
+
+								<tr>
+									<td><strong>Computer</strong></td>
+									<td>HP EliteDesk 800 G3 Mini</td>
+								</tr>
+
+								<tr>
+									<td><strong>Processor</strong></td>
+									<td>Intel Core i7-6700</td>
+								</tr>
+
+								<tr>
+									<td><strong>Memory</strong></td>
+									<td>16 GB RAM</td>
+								</tr>
+
+								<tr>
+									<td><strong>Storage</strong></td>
+									<td>256 GB SSD</td>
+								</tr>
+
+								<tr>
+									<td><strong>Operating System</strong></td>
+									<td>Linux Mint XFCE 22.3</td>
+								</tr>
+
+								<tr>
+									<td><strong>Remote Access</strong></td>
+									<td>RustDesk + SSH</td>
+								</tr>
+
+							</tbody>
+
+						</table>
+
+					</div>
+
+
+					<div class="image main">
+						<img src="images/Desktop%20Setup.png"
+							 alt="Linux SDR computer desktop running SDR++, WSJT-X, and the WSJT-X Wide Graph" />
+					</div>
+
+
+					<p>
+						This system eventually became the permanent interface between the
+						antenna and the automated measurement software.
+					</p>
+
+
+					<!-- ===================================================== -->
+					<!-- HEADLESS -->
+					<!-- ===================================================== -->
+
+					<h2>Headless Linux Troubleshooting</h2>
+
+					<h3>Remote Operation Without a Physical Monitor</h3>
+
+					<p>
+						The EliteDesk was intended to operate without its own keyboard,
+						mouse, or monitor. That made remote access necessary, but a fully
+						headless graphical Linux system introduced another set of problems.
+					</p>
+
+					<p>
+						RustDesk initially depended on the system having an active display,
+						so I configured a software-based dummy display rather than leaving
+						a physical monitor or HDMI dummy plug permanently connected.
+					</p>
+
+					<p>
+						SSH was also configured for terminal access. This gave the project
+						two complementary remote interfaces:
+					</p>
+
+
+					<ul>
+
+						<li>
+							<strong>SSH</strong> for scripts, configuration, file management,
+							and command-line troubleshooting
+						</li>
+
+						<li>
+							<strong>RustDesk</strong> when SDR++, WSJT-X, audio controls,
+							or other graphical applications needed to be observed
+						</li>
+
+					</ul>
+
+
+					<!-- ===================================================== -->
+					<!-- AUDIO ROUTING -->
+					<!-- ===================================================== -->
+
+					<h2>Virtual Audio Routing</h2>
+
+					<h3>Getting Receiver Audio Into WSJT-X</h3>
+
+					<p>
+						The next major integration problem was audio.
+					</p>
+
+					<p>
+						WSJT-X expects an audio input device, while the SDR receiver software
+						produces a demodulated audio stream. To connect the two without physical
+						audio cables, I created a virtual audio path using the Linux
+						PipeWire/PulseAudio compatibility layer.
+					</p>
+
+					<p>
+						The completed system uses a virtual sink monitored by WSJT-X.
+						Receiver audio can therefore be routed internally from the SDR software
+						directly into the decoder.
+					</p>
+
+
+					<div class="image main">
+						<img src="images/Desktop%20Collection%20Workflow%202.PNG"
+							 alt="Live Linux SDR workflow showing WSJT-X decoding FT8 while virtual audio routing and the automated terminal process are visible" />
+					</div>
+
+
+					<p>
+						The screenshot above shows the complete audio path operating during
+						a recreated data-collection run. WSJT-X is actively decoding FT8,
+						the Wide Graph shows received signal activity, the terminal displays
+						the running collection script, and the volume control shows applications
+						connected to the virtual audio monitor.
+					</p>
+
+
+					<!-- ===================================================== -->
+					<!-- GNU RADIO -->
+					<!-- ===================================================== -->
+
+					<h2>GNU Radio Experimentation</h2>
+
+					<p>
+						I also explored GNU Radio as a possible replacement for SDR++ and as
+						a way to build the receive chain explicitly from DSP blocks.
+					</p>
+
+					<p>
+						One prototype displayed the RTL-SDR spectrum directly. A second
+						attempt translated and filtered the 28.074 MHz FT8 region, resampled
+						the signal, converted it into an audio stream, and attempted to route
+						that audio into the Linux sound system for WSJT-X.
+					</p>
+
+					<p>
+						The prototypes were useful for understanding the receiver chain, but
+						they added complexity at a stage when the real requirement was
+						repeatable unattended collection.
+					</p>
+
+
+					<div class="box">
+
+						<p>
+							<strong>Design Decision:</strong>
+							Instead of continuing to expand the GNU Radio flowgraph,
+							I moved toward smaller command-line tools that could be scripted,
+							tested independently, and restarted easily.
+						</p>
+
+					</div>
+
+
+					<!-- ===================================================== -->
+					<!-- SINGLE SDR -->
+					<!-- ===================================================== -->
+
+					<h2>The Single-SDR Constraint</h2>
+
+					<p>
+						The experiment needed two different types of measurements:
+					</p>
+
+
+					<ul>
+
+						<li>
+							FT8 reception and decoding at approximately 28.074 MHz
+						</li>
+
+						<li>
+							A wider 26.9-28.2 MHz spectrum measurement
+						</li>
+
+					</ul>
+
+
+					<p>
+						Only one RTL-SDR was available, and two applications could not control
+						the same USB receiver simultaneously.
+					</p>
+
+					<p>
+						This meant the system could not simply run FT8 reception and a
+						wideband <code>rtl_power</code> scan at the same time.
+					</p>
+
+
+					<div class="box">
+
+						<p>
+							<strong>Final Approach:</strong>
+							Each measurement run was divided into two sequential stages:
+							first a dedicated FT8 receive window, followed by a separate
+							wideband power scan after the receiver was released.
+						</p>
+
+					</div>
+
+
+					<!-- ===================================================== -->
+					<!-- EARLY GUIDED WORKFLOW -->
+					<!-- ===================================================== -->
+
+					<h2>The First Scripted Workflow</h2>
+
+					<h3>Automating the Manual Procedure</h3>
+
+					<p>
+						The first useful automation was still interactive. A guided Bash script
+						created a new run folder, prompted for soil conditions, waited through
+						a timed FT8 test using SDR++, asked me to close SDR++, verified that
+						the RTL-SDR was available, and then launched the power scan.
+					</p>
+
+
+					<div class="box">
+
+						<h3>Early Guided Run</h3>
+
+						<ol>
+
+							<li>Create a timestamped run folder</li>
+
+							<li>Record the current ground and soil condition</li>
+
+							<li>Prepare SDR++ and WSJT-X</li>
+
+							<li>Record a timed FT8 decode window</li>
+
+							<li>Close SDR++</li>
+
+							<li>Verify that the SDR was no longer busy</li>
+
+							<li>Run <code>rtl_power</code></li>
+
+							<li>Save the resulting raw data and summaries</li>
+
+						</ol>
+
+					</div>
+
+
+					<p>
+						This version established the measurement order and run-folder
+						structure before I attempted to remove human interaction completely.
+					</p>
+
+
+					<!-- ===================================================== -->
+					<!-- RTL_FM -->
+					<!-- ===================================================== -->
+
+					<h2>Removing SDR++ From Data Collection</h2>
+
+					<p>
+						The major software breakthrough came from using
+						<code>rtl_fm</code> as the FT8 receiver instead of SDR++.
+					</p>
+
+					<p>
+						Unlike the graphical SDR software, <code>rtl_fm</code> could be
+						started and stopped entirely from Bash. Its demodulated 48 kHz audio
+						could then be piped directly into the virtual WSJT-X audio sink.
+					</p>
+
+
+					<pre><code>rtl_fm -f 28.0745M -M usb -s 48k -g 30 -p 0 |
+pacat --raw --rate=48000 --channels=1 --format=s16le \
+--latency-msec=50 --device=wsjtx_sink</code></pre>
+
+
+					<p>
+						With this change, the graphical SDR application no longer had to be
+						opened, configured, or closed manually during each scheduled test.
+					</p>
+
+
+					<!-- ===================================================== -->
+					<!-- WSJT-X LOGGING -->
+					<!-- ===================================================== -->
+
+					<h2>Isolating Each FT8 Measurement</h2>
+
+					<p>
+						WSJT-X continuously appends received messages to its
+						<code>ALL.TXT</code> log file. Reading the complete log after every
+						test would repeatedly include older decodes from previous measurements.
+					</p>
+
+					<p>
+						My first helper scripts solved this manually by saving the current
+						line count before a test and extracting only the lines added afterward.
+					</p>
+
+					<p>
+						That logic was later incorporated directly into the automated receiver:
+					</p>
+
+
+					<pre><code>START_LINE=$(wc -l &lt; "$ALLTXT")
+
+# Run receiver...
+
+tail -n +"$((START_LINE + 1))" "$ALLTXT" &gt; "$FT8_RAW"</code></pre>
+
+
+					<p>
+						Each measurement therefore received its own independent
+						<code>ft8_raw.txt</code> file rather than relying on one continuously
+						growing WSJT-X history file.
+					</p>
+
+
+					<!-- ===================================================== -->
+					<!-- FT8 SUMMARY -->
+					<!-- ===================================================== -->
+
+					<h2>Automatic FT8 Summaries</h2>
+
+					<p>
+						A Python parser converted the raw WSJT-X lines into summary values
+						for each measurement window.
+					</p>
+
+
+					<div class="row">
+
+						<div class="col-6 col-12-small">
+
+							<h3>FT8 Metrics</h3>
+
+							<ul>
+								<li>Total decodes</li>
+								<li>Number of decode periods</li>
+								<li>Average SNR</li>
+								<li>Best and worst SNR</li>
+								<li>Average time offset</li>
+								<li>Maximum absolute time offset</li>
+								<li>Average audio frequency</li>
+								<li>Minimum and maximum audio frequency</li>
+							</ul>
+
+						</div>
+
+
+						<div class="col-6 col-12-small">
+
+							<h3>Why Save Both Raw &amp; Summary Data?</h3>
+
+							<ul>
+								<li>Raw logs preserved every decoded message</li>
+								<li>Summary files simplified later processing</li>
+								<li>Individual runs remained independently auditable</li>
+								<li>Unexpected values could be traced back to original output</li>
+							</ul>
+
+						</div>
+
+					</div>
+
+
+					<!-- ===================================================== -->
+					<!-- RECEIVER TUNING -->
+					<!-- ===================================================== -->
+
+					<h2>Receiver Tuning</h2>
+
+					<h3>Replacing Guesswork With Repeated Tests</h3>
+
+					<p>
+						Before beginning long unattended campaigns, I wanted the command-line
+						receiver to perform reliably enough that a poor software configuration
+						would not become an experimental variable.
+					</p>
+
+					<p>
+						I wrote a tuning script that systematically tested frequency offsets,
+						receiver gain, PPM correction, RTL-SDR options, audio latency, and even
+						an intentionally incorrect LSB configuration as a sanity check.
+					</p>
+
+					<p>
+						The strongest frequency candidates were then tested again in a narrower
+						repeated experiment.
+					</p>
+
+
+					<div class="table-wrapper">
+
+						<table>
+
+							<thead>
+
+								<tr>
+									<th>rtl_fm Frequency</th>
+									<th>Repeated Tests</th>
+									<th>Avg. FT8 Decodes / 5 min</th>
+								</tr>
+
+							</thead>
+
+							<tbody>
+
+								<tr>
+									<td><strong>28.0745 MHz</strong></td>
+									<td>2</td>
+									<td><strong>57.5</strong></td>
+								</tr>
+
+								<tr>
+									<td>28.0747 MHz</td>
+									<td>2</td>
+									<td>41.5</td>
+								</tr>
+
+								<tr>
+									<td>28.0751 MHz</td>
+									<td>3</td>
+									<td>38.7</td>
+								</tr>
+
+								<tr>
+									<td>28.0749 MHz</td>
+									<td>3</td>
+									<td>27.3</td>
+								</tr>
+
+							</tbody>
+
+						</table>
+
+					</div>
+
+
+					<p>
+						The repeated tests were important because HF propagation was changing
+						during the tuning experiment itself. One configuration could perform
+						extremely well for five minutes and then perform much worse during
+						its next test.
+					</p>
+
+
+					<div class="box">
+
+						<p>
+							<strong>Final Automated Receiver Configuration:</strong><br />
+							28.0745 MHz USB<br />
+							30 dB requested tuner gain<br />
+							0 ppm programmed frequency correction<br />
+							48 kHz audio output<br />
+							50 ms virtual-audio latency
+						</p>
+
+					</div>
+
+
+					<!-- ===================================================== -->
+					<!-- RTL POWER -->
+					<!-- ===================================================== -->
+
+					<h2>Wideband Power Scanning</h2>
+
+					<p>
+						After the FT8 receiver released the SDR, the second stage of every
+						run used <code>rtl_power</code> to measure the broader spectrum.
+					</p>
+
+
+					<pre><code>rtl_power -f 26.9M:28.2M:10k -g 30 -i 10 -e 5m power_raw.csv</code></pre>
+
+
+					<p>
+						The 5-minute scan covered the region containing the original CB
+						activity, the 10 m FT8 frequency, and nearby beacon activity.
+					</p>
+
+					<p>
+						A Python script automatically summarized four repeatable windows:
+					</p>
+
+
+					<ul>
+
+						<li>27.185 MHz - CB Channel 19</li>
+
+						<li>27.385 MHz - CB Channel 38</li>
+
+						<li>28.074 MHz - FT8</li>
+
+						<li>28.200 MHz - beacon region</li>
+
+					</ul>
+
+
+					<p>
+						For each region, the script saved the number of samples plus average,
+						peak, and minimum receiver-reported relative power.
+					</p>
+
+
+					<!-- ===================================================== -->
+					<!-- AUTOMATION -->
+					<!-- ===================================================== -->
+
+					<h2>The Final Automated Collection Workflow</h2>
+
+					<p>
+						Once the individual receiver, decoder, spectrum, and logging tools
+						were working independently, they were combined into a single scheduled
+						collection controller.
+					</p>
+
+					<p>
+						The script created a new experimental session, recorded the selected
+						grounding configuration, waited for predefined measurement times,
+						and automatically launched each complete run.
+					</p>
+
+
+					<div class="box">
+
+						<h3>Scheduled Collection Times</h3>
+
+						<p>
+							<strong>
+								08:00 &nbsp; | &nbsp;
+								10:00 &nbsp; | &nbsp;
+								12:00 &nbsp; | &nbsp;
+								14:00 &nbsp; | &nbsp;
+								16:00 &nbsp; | &nbsp;
+								18:00 &nbsp; | &nbsp;
+								20:00
+							</strong>
+						</p>
+
+					</div>
+
+
+					<div class="image main">
+						<img src="images/Desktop%20Collection%20Workflow.PNG"
+							 alt="Full automated soil RF collection workflow running on the Linux SDR computer" />
+					</div>
+
+
+					<p>
+						This recreated run shows the finished collection workflow in operation.
+						The terminal has reached a scheduled measurement and launched the
+						30-minute <code>rtl_fm</code> FT8 collection while WSJT-X is actively
+						decoding the incoming audio.
+					</p>
+
+					<p>
+						The Wide Graph makes the received FT8 activity visible, while the
+						audio controls verify that the software is connected to the
+						<code>WSJTX_Virtual_Audio</code> monitor.
+					</p>
+
+
+					<!-- ===================================================== -->
+					<!-- FAILURE HANDLING -->
+					<!-- ===================================================== -->
+
+					<h3>Letting Noncritical Failures Stay Noncritical</h3>
+
+					<p>
+						The workflow screenshot also captured a real
+						<code>HTTP Error 503: Service Unavailable</code> from Open-Meteo.
+					</p>
+
+					<p>
+						Weather logging was useful environmental context, but it was not the
+						primary RF measurement. The scheduler was therefore designed so that
+						a temporary external API failure would be reported without cancelling
+						an otherwise valid SDR run.
+					</p>
+
+					<p>
+						In the screenshot, the weather request fails, the script reports the
+						error, checks SDR availability, and continues directly into the FT8
+						measurement.
+					</p>
+
+
+					<div class="box">
+
+						<p>
+							<strong>Automation Principle:</strong>
+							A failure in supplemental environmental logging should not destroy
+							an RF measurement that can still be collected successfully.
+						</p>
+
+					</div>
+
+
+					<!-- ===================================================== -->
+					<!-- RUN OUTPUT -->
+					<!-- ===================================================== -->
+
+					<h2>What One Automated Run Produces</h2>
+
+					<div class="image main">
+						<img src="images/Desktop%20Collection%20Workflow%203.PNG"
+							 alt="Completed automated SDR run showing terminal output and generated data files" />
+					</div>
+
+
+					<p>
+						At the end of the cycle, the terminal lists the files generated for
+						that individual measurement.
+					</p>
+
+
+					<div class="table-wrapper">
+
+						<table>
+
+							<thead>
+
+								<tr>
+									<th>File</th>
+									<th>Purpose</th>
+								</tr>
+
+							</thead>
+
+							<tbody>
+
+								<tr>
+									<td><code>README.txt</code></td>
+									<td>
+										Human-readable description of the run configuration
+									</td>
+								</tr>
+
+								<tr>
+									<td><code>condition.csv</code></td>
+									<td>
+										Grounding configuration and receiver settings
+									</td>
+								</tr>
+
+								<tr>
+									<td><code>weather_summary.csv</code></td>
+									<td>
+										Environmental information associated with the run
+									</td>
+								</tr>
+
+								<tr>
+									<td><code>ft8_raw.txt</code></td>
+									<td>
+										Raw WSJT-X decode lines collected during the run
+									</td>
+								</tr>
+
+								<tr>
+									<td><code>ft8_summary.txt</code></td>
+									<td>
+										Automatically calculated FT8 statistics
+									</td>
+								</tr>
+
+								<tr>
+									<td><code>rtl_fm_command.txt</code></td>
+									<td>
+										Exact receiver command used for the measurement
+									</td>
+								</tr>
+
+								<tr>
+									<td><code>rtl_fm_receiver.log</code></td>
+									<td>
+										RTL-SDR receiver diagnostic output
+									</td>
+								</tr>
+
+								<tr>
+									<td><code>power_raw.csv</code></td>
+									<td>
+										Raw 26.9-28.2 MHz spectrum measurement
+									</td>
+								</tr>
+
+								<tr>
+									<td><code>power_summary.txt</code></td>
+									<td>
+										Automatically summarized spectral windows
+									</td>
+								</tr>
+
+								<tr>
+									<td><code>power_command.txt</code></td>
+									<td>
+										Exact rtl_power command used for the run
+									</td>
+								</tr>
+
+								<tr>
+									<td><code>rtl_power.log</code></td>
+									<td>
+										Power-scan diagnostic output
+									</td>
+								</tr>
+
+							</tbody>
+
+						</table>
+
+					</div>
+
+
+					<p>
+						Saving both the processed values and the commands used to produce
+						them made each run easier to audit later without relying on memory
+						of how the software had been configured.
+					</p>
+
+
+					<!-- ===================================================== -->
+					<!-- GROUNDING -->
+					<!-- ===================================================== -->
+
+					<h2>Grounding Configuration Development</h2>
+
+					<h3>The Original 6-ft Ground Rod</h3>
+
+					<p>
+						The original antenna grounding arrangement used the same approximately
+						6-ft ground rod that had been installed when my dad originally built
+						the antenna system.
+					</p>
+
+					<p>
+						That configuration became the starting point for the later controlled
+						field measurements.
+					</p>
+
+
+					<h3>Creating a More Surface-Sensitive Electrode</h3>
+
+					<p>
+						As the experiment developed, I became concerned that applying water
+						only near the surface might have relatively little influence on a
+						ground rod extending approximately six feet into the earth.
+					</p>
+
+					<p>
+						To create an experimental grounding arrangement deliberately more
+						dependent on shallow soil conditions, I purchased a steel screwdriver
+						and modified it for use as a short grounding electrode.
+					</p>
+
+					<p>
+						The resulting electrode was approximately 8 in long, with roughly
+						7 in inserted into the soil. I connected it to the antenna structure
+						using a dedicated copper jumper.
+					</p>
+
+
+					<div class="image main">
+						<img src="images/20260730_090543.jpg"
+							 alt="Antenna tower base showing original grounding system and short experimental grounding electrode" />
+					</div>
+
+
+					<p>
+						I performed the grounding changes myself, installed the shallow
+						experimental connection, documented the configuration, and managed
+						the subsequent field-test conditions.
+					</p>
+
+
+					<!-- ===================================================== -->
+					<!-- WATERING -->
+					<!-- ===================================================== -->
+
+					<h2>Controlled Soil Wetting</h2>
+
+					<p>
+						The shallow electrode also made it practical to create a repeatable
+						local wetting condition rather than waiting exclusively for rainfall.
+					</p>
+
+					<p>
+						During the artificial-saturation phase, I applied approximately
+						5 gallons of well water each evening over an area roughly
+						3 ft by 3 ft centered around the shallow electrode.
+					</p>
+
+					<p>
+						The grounding hardware and receiver configuration were kept unchanged
+						while the local soil condition was deliberately altered.
+					</p>
+
+
+					<div class="box">
+
+						<p>
+							<strong>Methodology Goal:</strong>
+							Separate a controlled local change in soil conditions from the
+							much broader atmospheric changes that accompany natural rainfall.
+						</p>
+
+					</div>
+
+
+					<!-- ===================================================== -->
+					<!-- ENVIRONMENTAL -->
+					<!-- ===================================================== -->
+
+					<h2>Environmental Data Logging</h2>
+
+					<p>
+						10 m reception can change dramatically for reasons completely unrelated
+						to the antenna ground. Environmental context therefore needed to be
+						preserved alongside the RF measurements.
+					</p>
+
+					<p>
+						The automated system attempted to collect Open-Meteo information
+						including:
+					</p>
+
+
+					<ul>
+
+						<li>Temperature</li>
+
+						<li>Relative humidity</li>
+
+						<li>Dew point</li>
+
+						<li>Surface pressure</li>
+
+						<li>Cloud cover</li>
+
+						<li>Wind speed</li>
+
+						<li>Current precipitation</li>
+
+						<li>Recent precipitation totals</li>
+
+						<li>Modeled near-surface soil temperature</li>
+
+						<li>Modeled near-surface soil moisture</li>
+
+					</ul>
+
+
+					<p>
+						Oklahoma Mesonet observations were also downloaded separately over
+						each campaign date range and matched to RF measurements using local
+						timestamps.
+					</p>
+
+					<p>
+						Those environmental variables become more important in Part II,
+						where they can be considered alongside the completed RF dataset.
+					</p>
+
+
+					<!-- ===================================================== -->
+					<!-- DATA AGGREGATION -->
+					<!-- ===================================================== -->
+
+					<h2>From Run Folders to Analysis-Ready Data</h2>
+
+					<p>
+						Automated collection solved one problem and created another:
+						every scheduled measurement generated its own folder containing
+						multiple raw and summarized files.
+					</p>
+
+					<p>
+						I therefore wrote a Python aggregation script that walks through
+						the timestamped run folders and produces campaign-level CSV files.
+					</p>
+
+
+					<div class="box">
+
+						<h3>Combined Outputs</h3>
+
+						<ul>
+
+							<li>
+								<code>master_runs.csv</code> -
+								one row per scheduled measurement
+							</li>
+
+							<li>
+								<code>master_ft8_decodes.csv</code> -
+								one row per individual FT8 decode
+							</li>
+
+							<li>
+								<code>master_power_summary.csv</code> -
+								one row per run containing the selected spectral windows
+							</li>
+
+							<li>
+								<code>master_weather_summary.csv</code> -
+								one row per run containing environmental context
+							</li>
+
+						</ul>
+
+					</div>
+
+
+					<p>
+						Mesonet observations could then be merged into the master run table
+						using a time window around each scheduled measurement.
+					</p>
+
+					<p>
+						This was the final step in Part I: converting a collection of
+						individual SDR experiments into a structured dataset ready for
+						statistical analysis.
+					</p>
+
+
+					<!-- ===================================================== -->
+					<!-- CORE SOFTWARE -->
+					<!-- ===================================================== -->
+
+					<h2>Core Collection Software</h2>
+
+					<p>
+						The finished measurement system grew from many small scripts rather
+						than one monolithic program. Each script handled a specific task,
+						which made individual parts easier to test, modify, and troubleshoot.
+					</p>
+
+
+					<div class="table-wrapper">
+
+						<table>
+
+							<thead>
+
+								<tr>
+									<th>Script</th>
+									<th>Role in Part I</th>
+								</tr>
+
+							</thead>
+
+							<tbody>
+
+								<tr>
+									<td><code>run_test.sh</code></td>
+									<td>
+										Early guided single-SDR workflow using manual SDR++ FT8 reception
+									</td>
+								</tr>
+
+								<tr>
+									<td><code>ft8_test.sh</code></td>
+									<td>
+										Timed WSJT-X logging during the original manual receiver workflow
+									</td>
+								</tr>
+
+								<tr>
+									<td><code>start_ft8_marker.sh</code></td>
+									<td>
+										Early helper used to mark the current position in the WSJT-X log
+									</td>
+								</tr>
+
+								<tr>
+									<td><code>tune_rtl_fm_ft8.sh</code></td>
+									<td>
+										Broad automated sweep of command-line FT8 receiver settings
+									</td>
+								</tr>
+
+								<tr>
+									<td><code>tune_rtl_fm_ft8_narrow.sh</code></td>
+									<td>
+										Repeated comparison of the strongest receiver configurations
+									</td>
+								</tr>
+
+								<tr>
+									<td><code>ft8_rtl_fm_test.sh</code></td>
+									<td>
+										Command-line FT8 receiver and automatic WSJT-X log isolation
+									</td>
+								</tr>
+
+								<tr>
+									<td><code>summarize_wsjtx.py</code></td>
+									<td>
+										Parses raw FT8 decoder output and calculates run statistics
+									</td>
+								</tr>
+
+								<tr>
+									<td><code>power_scan.sh</code></td>
+									<td>
+										Controls the 26.9-28.2 MHz rtl_power measurement
+									</td>
+								</tr>
+
+								<tr>
+									<td><code>summarize_power.py</code></td>
+									<td>
+										Extracts repeatable CB, FT8, and beacon spectral windows
+									</td>
+								</tr>
+
+								<tr>
+									<td><code>log_openmeteo_weather.py</code></td>
+									<td>
+										Attempts to log environmental context for each scheduled measurement
+									</td>
+								</tr>
+
+								<tr>
+									<td><code>continuous_soil_rf_test.sh</code></td>
+									<td>
+										Main unattended scheduler and collection controller
+									</td>
+								</tr>
+
+								<tr>
+									<td><code>combine_soil_rf_runs.py</code></td>
+									<td>
+										Converts individual run folders into campaign-level datasets
+									</td>
+								</tr>
+
+								<tr>
+									<td><code>fetch_mesonet_range.R</code></td>
+									<td>
+										Downloads Oklahoma Mesonet observations for campaign dates
+									</td>
+								</tr>
+
+								<tr>
+									<td><code>merge_mesonet_with_master.py</code></td>
+									<td>
+										Time-aligns Mesonet observations with the RF master dataset
+									</td>
+								</tr>
+
+							</tbody>
+
+						</table>
+
+					</div>
+
+
+					<p>
+						Additional scripts were later developed for statistical analysis and
+						publication-quality figure generation. Those belong with the analysis
+						and results documented in Part II rather than with the collection
+						platform described here.
+					</p>
+
+
+					<!-- ===================================================== -->
+					<!-- EVOLUTION -->
+					<!-- ===================================================== -->
+
+					<h2>How the Workflow Evolved</h2>
+
+					<div class="box">
+
+						<ol>
+
+							<li>
+								<strong>Manual SDR exploration</strong><br />
+								Learn SDR++, tune signals, and identify usable references
+							</li>
+
+							<li>
+								<strong>Recorded WAV experiments</strong><br />
+								Attempt offline Audacity, WSJT-X, and MSHV processing
+							</li>
+
+							<li>
+								<strong>Dedicated Linux computer</strong><br />
+								Move the receiver to an always-available remote system
+							</li>
+
+							<li>
+								<strong>Virtual audio</strong><br />
+								Route live receiver audio directly into WSJT-X
+							</li>
+
+							<li>
+								<strong>GNU Radio prototypes</strong><br />
+								Experiment with explicit DSP receive chains
+							</li>
+
+							<li>
+								<strong>Guided Bash workflow</strong><br />
+								Standardize the order of manual FT8 and power measurements
+							</li>
+
+							<li>
+								<strong>Command-line rtl_fm receiver</strong><br />
+								Remove SDR++ from the required collection process
+							</li>
+
+							<li>
+								<strong>Receiver tuning</strong><br />
+								Systematically establish repeatable operating settings
+							</li>
+
+							<li>
+								<strong>Scheduled automation</strong><br />
+								Run the complete experiment unattended seven times per day
+							</li>
+
+							<li>
+								<strong>Dataset aggregation</strong><br />
+								Convert individual run folders into analysis-ready master tables
+							</li>
+
+						</ol>
+
+					</div>
+
+
+					<!-- ===================================================== -->
+					<!-- TROUBLESHOOTING -->
+					<!-- ===================================================== -->
+
+					<h2>Major Troubleshooting Challenges</h2>
+
+					<div class="row">
+
+						<div class="col-6 col-12-small">
+
+							<h3>RF &amp; Signal Processing</h3>
+
+							<ul>
+								<li>Selecting repeatable signals instead of random CB voice traffic</li>
+								<li>Determining practical gain and bandwidth settings</li>
+								<li>Getting SDR recordings into WSJT-X</li>
+								<li>Managing sample-rate and audio-format compatibility</li>
+								<li>Developing a reliable command-line FT8 receiver</li>
+								<li>Working around the single-SDR hardware limitation</li>
+								<li>Distinguishing receiver problems from changing propagation</li>
+							</ul>
+
+						</div>
+
+
+						<div class="col-6 col-12-small">
+
+							<h3>Linux &amp; Automation</h3>
+
+							<ul>
+								<li>Headless graphical remote access</li>
+								<li>RustDesk configuration</li>
+								<li>SSH setup and remote administration</li>
+								<li>PipeWire/PulseAudio virtual routing</li>
+								<li>WSJT-X input-device configuration</li>
+								<li>USB receiver ownership between applications</li>
+								<li>Automatic process termination</li>
+								<li>External weather-service failures</li>
+								<li>Long-duration scheduled execution</li>
+								<li>Organizing large numbers of generated files</li>
+							</ul>
+
+						</div>
+
+					</div>
+
+
+					<!-- ===================================================== -->
+					<!-- ENGINEERING TAKEAWAYS -->
+					<!-- ===================================================== -->
+
+					<h2>Engineering Takeaways From Part I</h2>
+
+
+					<h3>Measurement Systems Are Projects of Their Own</h3>
+
+					<p>
+						The antenna experiment could not produce meaningful measurements
+						until the receiver, audio path, decoder, timing, file structure,
+						and spectral tools all worked together consistently.
+					</p>
+
+
+					<h3>Automation Requires Reliable Small Pieces</h3>
+
+					<p>
+						The final scheduler became manageable because FT8 collection,
+						power scanning, weather logging, and summarization were first
+						developed as separate tools.
+					</p>
+
+
+					<h3>Manual Procedures Reveal What Should Be Automated</h3>
+
+					<p>
+						Repeatedly opening SDR++, marking WSJT-X logs, closing the receiver,
+						running a power scan, and organizing files made the weak points in the
+						workflow obvious. Each repeated manual action became a candidate for
+						automation.
+					</p>
+
+
+					<h3>Failures Should Be Contained</h3>
+
+					<p>
+						The Open-Meteo error captured in the final workflow screenshot is a
+						good example. Losing supplemental weather data should not automatically
+						mean losing an otherwise valid RF measurement.
+					</p>
+
+
+					<h3>Field Testing Changes the Original Plan</h3>
+
+					<p>
+						Weather, propagation, hardware behavior, and software limitations all
+						forced changes to the original experimental sequence. The eventual
+						methodology was stronger because it developed in response to those
+						problems.
+					</p>
+
+
+					<h3>Keep the Raw Data</h3>
+
+					<p>
+						Summary statistics made hundreds of generated files manageable,
+						but the original WSJT-X logs and rtl_power outputs were preserved so
+						that unusual values could still be traced back to the underlying
+						measurement.
+					</p>
+
+
+					<!-- ===================================================== -->
+					<!-- SKILLS -->
+					<!-- ===================================================== -->
+
+					<h2>What Part I Demonstrates</h2>
+
+					<div class="row">
+
+						<div class="col-6 col-12-small">
+
+							<h3>RF &amp; Experimental Methods</h3>
+
+							<ul>
+								<li>Software-defined radio operation</li>
+								<li>HF spectrum monitoring</li>
+								<li>FT8 weak-signal reception</li>
+								<li>USB demodulation</li>
+								<li>Spectral measurement</li>
+								<li>Receiver tuning</li>
+								<li>Antenna grounding experimentation</li>
+								<li>Controlled field-test design</li>
+								<li>Environmental-variable logging</li>
+								<li>Repeatable measurement methodology</li>
+							</ul>
+
+						</div>
+
+
+						<div class="col-6 col-12-small">
+
+							<h3>Linux, Programming &amp; Integration</h3>
+
+							<ul>
+								<li>Linux Mint administration</li>
+								<li>Bash scripting</li>
+								<li>Python scripting</li>
+								<li>R scripting</li>
+								<li>GNU Radio experimentation</li>
+								<li>WSJT-X integration</li>
+								<li>PipeWire / PulseAudio routing</li>
+								<li>SSH and remote administration</li>
+								<li>RustDesk headless operation</li>
+								<li>Process management</li>
+								<li>Scheduled automation</li>
+								<li>Structured data logging</li>
+								<li>CSV aggregation</li>
+								<li>System troubleshooting</li>
+							</ul>
+
+						</div>
+
+					</div>
+
+
+					<!-- ===================================================== -->
+					<!-- FINAL PLATFORM -->
+					<!-- ===================================================== -->
+
+					<h2>Final Data-Collection Platform</h2>
+
+					<div class="image main">
+						<img src="images/Desktop%20Collection%20Workflow%202.PNG"
+							 alt="Completed Linux SDR data collection system receiving and decoding FT8 automatically" />
+					</div>
+
+
+					<p>
+						By the end of the development process, the project no longer depended
+						on manually opening SDR software, recording WAV files, moving files
+						between computers, or starting each measurement by hand.
+					</p>
+
+					<p>
+						The dedicated Linux system could wait for a scheduled time, create
+						a new run directory, record the experimental configuration, attempt
+						environmental logging, receive FT8 for 30 minutes, isolate the new
+						WSJT-X decodes, calculate summary values, release the RTL-SDR,
+						perform a 5-minute spectrum scan, summarize the selected frequency
+						windows, and then wait for the next scheduled measurement.
+					</p>
+
+					<p>
+						That automated platform became the foundation for the full field
+						dataset and the analysis that followed.
+					</p>
+
+
+					<div class="box">
+
+						<p>
+							<strong>Next: Part II - Data Analysis &amp; Research Results</strong>
+						</p>
+
+						<p>
+							Part II will continue from the completed measurement platform
+							and focus on the collected campaigns, FT8 and spectral behavior,
+							time-of-day effects, controlled watering comparisons, statistical
+							modeling, experimental limitations, and final research results.
+						</p>
+
+					</div>
+
+
+				</section>
+
+			</div>
+
+
+			<!-- Footer -->
+			<footer id="footer">
+
+				<section class="split contact">
+
+					<section class="alt">
+
+						<h3>Location</h3>
+
+						<p>
+							<br />
+							Choctaw, OK 73020
+						</p>
+
+					</section>
+
+
+					<section>
+
+						<h3>Phone</h3>
+
+						<p>
+							<a href="tel:+14058302747">
+								(405) 830-2747
+							</a>
+						</p>
+
+					</section>
+
+
+					<section>
+
+						<h3>Email</h3>
+
+						<p>
+							<a href="mailto:tysoneastep05@gmail.com">
+								tysoneastep05@gmail.com
+							</a>
+						</p>
+
+					</section>
+
+
+					<section>
+
+						<h3>Social</h3>
+
+						<ul class="icons alt">
+
+							<li>
+								<a href="https://www.linkedin.com/in/t-eastep/"
+								   class="icon brands alt fa-linkedin">
+									<span class="label">LinkedIn</span>
+								</a>
+							</li>
+
+							<li>
+								<a href="https://github.com/Tyson-Eastep"
+								   class="icon brands alt fa-github">
+									<span class="label">GitHub</span>
+								</a>
+							</li>
+
+						</ul>
+
+					</section>
+
+				</section>
+
+			</footer>
+
+
+			<!-- Copyright -->
+			<div id="copyright">
+
+				<ul>
+
+					<li>&copy; Tyson Eastep</li>
+
+					<li>
+						Design:
+						<a href="https://html5up.net">
+							HTML5 UP
+						</a>
+					</li>
+
+				</ul>
+
+			</div>
+
+		</div>
+
+
+		<!-- Scripts -->
+		<script src="assets/js/jquery.min.js"></script>
+		<script src="assets/js/jquery.scrollex.min.js"></script>
+		<script src="assets/js/jquery.scrolly.min.js"></script>
+		<script src="assets/js/browser.min.js"></script>
+		<script src="assets/js/breakpoints.min.js"></script>
+		<script src="assets/js/util.js"></script>
+		<script src="assets/js/main.js"></script>
+
+	</body>
+</html>
